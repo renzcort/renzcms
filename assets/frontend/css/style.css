@@ -1,0 +1,29 @@
+#wrap{
+	position: relative;
+	overflow-x: hidden;
+	transition: 0.3s ease-in-out all;
+}
+
+
+/* Mobile Horizontal */
+@media (min-width: 401px) and (max-width: 767px){
+
+
+}
+/* Tablet Big Screen */
+@media (min-width: 768px) and (max-width: 991px){
+
+
+}
+/* Desktop Small Screen */
+@media (min-width: 992px) and (max-width: 1200px){
+
+
+}
+/* Desktop Large Screen */
+@media (min-width: 1200px){
+
+}
+@media(min-width: 1440px){
+
+}
