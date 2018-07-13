@@ -43,7 +43,7 @@ class General extends CI_Controller {
 			} else {
 				var_dump('tes3');
 				$uri_segment  = 4;
-				$offset       = ($this->uri->segment(4)) ? $this->uri->segment(4):'0';
+				$offset       = ($this->uri->segment(4)) ? $this->uri->segment(4): 0;
 				$segment      =	$this->segment_3;
 				$config['upload_path']  =  './assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
         $data['title']  = 'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
@@ -52,13 +52,6 @@ class General extends CI_Controller {
 			}
 		}
 		
-		$data['segment']	=	$segment;
-    // $action =	$data['action'];
-
-		//Penomoran baris data
-		// $offset = $this->uri->segment($uri_segment);
-		//Penomoran baris data
-		// $i = 0 + $offset;
     $allrecord = $this->$segment->record_count();
     $baseurl =  base_url().$data['action'];
     
@@ -66,7 +59,7 @@ class General extends CI_Controller {
     $paging['i'] = 0 + $offset;
     $paging['base_url'] =$baseurl;
     $paging['total_rows'] = $allrecord;
-    $paging['per_page'] = 2;
+    $paging['per_page'] = 5;
     $paging['uri_segment']= $uri_segment;
     $paging['num_links'] = 2;
     $paging['first_link'] = 'First';
@@ -86,15 +79,14 @@ class General extends CI_Controller {
     $paging['cur_tag_open'] = '<li class="active"><a href="javascript:void(0);">';
     $paging['cur_tag_close'] = '</a></li>';
     $paging['use_page_numbers']  = FALSE;
-
-    var_dump($paging);
     $this->pagination->initialize($paging);
+    
+    $data['segment']  = $segment;
     $data['i'] = 0 + $offset;
     $data['limit'] = $paging['per_page'];
     $data['number_page'] = $paging['per_page'];         
     $data['nav'] = $this->pagination->create_links();    
     $data['total_rows'] = $allrecord;
-
 		$data['getAllSection'] = $this->section->getAll();
 		$data['getAllField'] = $this->field->getAll();
   	$data["getAll"] = $this->$segment->fetch_data($data['limit'],$offset);			
@@ -105,23 +97,23 @@ class General extends CI_Controller {
 	}
 
 	public function create() {
-		$data['session_data']	=	$this->session_data;
-		if (empty($this->segment_3) || in_array($this->segment_3, array('create', 'edit', 'update', 'delete'))) {
-			$segment 			=	$this->segment_2;
-	       	$data['title']		=	'List '.ucfirst($segment) ;
-			$data['action']		=	'admin/'.$segment;
-			$config['upload_path'] =	'./assets/upload/backend/'.$segment.'/';
-			$data['filepath']	=	base_url('assets/upload/backend/'.$segment.'/');	
-		} else {
-			$segment 			=	$this->segment_3;
-	       	$data['title']		=	'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
-			$data['action']		=	'admin/'.$this->segment_2.'/'.$segment;
-			$config['upload_path'] =	'./assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
-			$data['filepath']	=	base_url('assets/upload/backend/'.$this->segment_2.'/'.$segment.'/');
-		}
-		$data['segment']	=	$segment;
-		$action 			=	$data['action'];
-		$data['getAllSection'] = $this->section->getAll();
+    if (empty($this->segment_3) || in_array($this->segment_3, array('create', 'edit', 'update', 'delete'))) {
+      $segment  = $this->segment_2;
+      $config['upload_path']  =  './assets/upload/backend/'.$segment.'/';
+      $data['title']    = 'List '.ucfirst($segment);
+      $data['action']   = 'admin/'.$segment;
+      $data['filepath'] = base_url('assets/upload/backend/'.$segment.'/');  
+    } else {
+      $segment  =  $this->segment_3;
+      $config['upload_path']  = './assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
+      $data['title']  = 'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
+      $data['action'] = 'admin/'.$this->segment_2.'/'.$segment;
+      $data['filepath'] = base_url('assets/upload/backend/'.$this->segment_2.'/'.$segment.'/');
+    }
+    $action = $data['action'];
+		$data['session_data'] = $this->session_data;
+    $data['segment']  = $segment;
+    $data['getAllSection'] = $this->section->getAll();
 		$data['getAllField'] = $this->field->getAll();
 		$data['getAll'] = 	$this->$segment->getAll();
 
@@ -136,10 +128,10 @@ class General extends CI_Controller {
 				// SECTION PAGE
 				if ($segment == 'section') {
 					$data = array(	
-						'name'			=>	$this->input->post('name'),
-						'type' 			=> 	$this->input->post('type'),
+						'name'			   =>	$this->input->post('name'),
+						'type' 			  => 	$this->input->post('type'),
 						'description'	=>	$this->input->post('description'),
-						'slug'			=>	url_title(strtolower($this->input->post('name'))),
+						'slug'        =>	url_title(strtolower($this->input->post('name'))),
 						'created_by'	=>	$data['session_data']->id,
 						'updated_by'	=>	$data['session_data']->id,
 						'created_at'	=>	date('Y-m-d H:i:s'),
@@ -147,16 +139,36 @@ class General extends CI_Controller {
 					);
 				} elseif ($segment == 'field') {
 					$data = array(	
-						'name'			=>	'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
-						'label' 		=> 	$this->input->post('name'),
-						'type' 			=> 	$this->input->post('type'),
-						'slug'			=>	url_title(strtolower($this->input->post('name'))),
+						'name'        =>  'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
+						'label' 		  => 	$this->input->post('name'),
+						'type' 			  => 	$this->input->post('type'),
+						'slug'        =>	url_title(strtolower($this->input->post('name'))),
 						'created_by'	=>	$data['session_data']->id,
 						'updated_by'	=>	$data['session_data']->id,
 						'created_at'	=>	date('Y-m-d H:i:s'),
 						'updated_at'	=>	date('Y-m-d H:i:s'),
 					);
-				} elseif($segment == 'group') {
+          // check field 
+          $checkfield = $this->$segment->checkData($data);
+          if ($checkfield == false) {
+            $column = array(
+              'name'  =>  'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
+              'type'  =>  $this->input->post('type'),
+            );
+            if ($column['type'] == 'INT') {
+              $column['constraint'] = 11;
+            } elseif($column['type'] == 'VARCHAR') {
+              $column['constraint'] = 255;
+            } else {
+              $column['constraint'] = '';
+            }
+            // add column in entries
+            $this->entries->alterAddColumn($column);
+          } else {
+            $this->session->set_flashdata('message', 'Data '.$segment.' Duplicate');
+            redirect($action);
+          }
+        } elseif($segment == 'group') {
 					$data = array(	
 						'id_section'	=>	$this->input->post('section'),
 						'id_field'		=>	$this->input->post('field'),
@@ -170,26 +182,10 @@ class General extends CI_Controller {
                  			$values[] = $this->input->post($key);
 						}
 					}
-   					$data = array_combine($keys, $values);
+   				$data = array_combine($keys, $values);
 				}
 
-				if($segment == 'field') {
-					$column = array(
-						'name'	=>	'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
-						'type'	=>	$this->input->post('type'),
-					);
-					if ($column['type'] == 'INT') {
-						$column['constraint'] = 11;
-					} elseif($column['type'] == 'VARCHAR') {
-						$column['constraint'] = 255;
-					} else {
-						$column['constraint'] = '';
-					}
-					// add column in entries
-					$this->entries->alterAddColumn($column);
-				}
-				$this->$segment->create($data);
-				
+				$this->$segment->create($data);				
 				$this->session->set_flashdata('message', 'Data Success added');
 				redirect($action);
 			} else {
@@ -197,34 +193,33 @@ class General extends CI_Controller {
 				redirect($action.'/create');
 			}
 		}
-		
 		$data['content']	=	$data['action'].'/create';
 		$this->load->view('admin/layout/default', $data);
 	}
 
 
 	public function update($id) {
-		$data['session_data']	=	$this->session_data;
-		if (empty($this->segment_3) || in_array($this->segment_3, array('create', 'edit', 'update', 'delete'))) {
-			$segment 			=	$this->segment_2;
-	       	$data['title']		=	'List '.ucfirst($segment) ;
-			$data['action']		=	'admin/'.$segment;
-			$config['upload_path'] =	'./assets/upload/backend/'.$segment.'/';
-			$data['filepath']	=	base_url('assets/upload/backend/'.$segment.'/');	
-		} else {
-			$segment 			=	$this->segment_3;
-	       	$data['title']		=	'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
-			$data['action']		=	'admin/'.$this->segment_2.'/'.$segment;
-			$config['upload_path'] =	'./assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
-			$data['filepath']	=	base_url('assets/upload/backend/'.$this->segment_2.'/'.$segment.'/');
-		}
-		$data['segment']	=	$segment;
-		$action 			=	$data['action'];
-		$data['getAllSection'] = $this->section->getAll();
-		$data['getAllField'] = $this->field->getAll();
-		$data['getAll'] = 	$this->$segment->getAll();
-		$data['getDataById']	=	$this->$segment->getDataById($id);
-		$getDataById = $data['getDataById'];
+    if (empty($this->segment_3) || in_array($this->segment_3, array('create', 'edit', 'update', 'delete'))) {
+      $segment  = $this->segment_2;
+      $config['upload_path']  = './assets/upload/backend/'.$segment.'/';
+      $data['title']    = 'List '.ucfirst($segment) ;
+      $data['action']   = 'admin/'.$segment;
+      $data['filepath'] = base_url('assets/upload/backend/'.$segment.'/');  
+    } else {
+      $segment  = $this->segment_3;
+      $config['upload_path']  = './assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
+      $data['title']    = 'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
+      $data['action']   = 'admin/'.$this->segment_2.'/'.$segment;
+      $data['filepath'] = base_url('assets/upload/backend/'.$this->segment_2.'/'.$segment.'/');
+    }
+    $action = $data['action']; 
+		$data['session_data'] = $this->session_data;
+		$data['segment']  = $segment;
+		$data['getAllSection']  = $this->section->getAll();
+		$data['getAllField']    = $this->field->getAll();
+		$data['getAll']         = $this->$segment->getAll();
+		$data['getDataById']    = $this->$segment->getDataById($id);
+		$getDataById  = $data['getDataById'];
 		
 		if (isset($_POST['submit'])) {
 			$config['allowed_types']	=	'gif|jpg|png';
@@ -236,44 +231,27 @@ class General extends CI_Controller {
 				// check if there is form entries
 				if ($segment == 'section') {
 					$data = array(	
-						'name'			=>	$this->input->post('name'),
-						'type' 			=> 	$this->input->post('type'),
+						'name'        =>	$this->input->post('name'),
+						'type' 			  => 	$this->input->post('type'),
 						'description'	=>	$this->input->post('description'),
-						'slug'			=>	url_title(strtolower($this->input->post('name'))),
-						'created_by'	=>	$data['session_data']->id,
-						'updated_by'	=>	$data['session_data']->id,
-						'created_at'	=>	date('Y-m-d H:i:s'),
-						'updated_at'	=>	date('Y-m-d H:i:s'),
-					);
-				} elseif ($segment == 'field') {
-					$data = array(	
-						'name'			=>	'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
-						'label' 		=> 	$this->input->post('name'),
-						'type' 			=> 	$this->input->post('type'),
-						'slug'			=>	url_title(strtolower($this->input->post('name'))),
-						'created_by'	=>	$data['session_data']->id,
-						'updated_by'	=>	$data['session_data']->id,
-						'created_at'	=>	date('Y-m-d H:i:s'),
-						'updated_at'	=>	date('Y-m-d H:i:s'),
-					);
-				} elseif($segment == 'group') {
-					$data = array(	
-						'id_section'	=>	$this->input->post('section'),
-						'id_field'		=>	$this->input->post('field'),
-					);
-				} else {
-					$entries = array();
-					foreach($_POST as $key => $value){
-						if (!in_array($key, array('entries', 'name', 'submit'))) {
-						    // $data[$key] = $this->entries->input->post($key);
-                 			$keys[] = $key;
-                 			$values[] = $this->input->post($key);
-						}
-					}
-   					$data = array_combine($keys, $values);
-				}
-
-				if($segment == 'field') {
+            'slug'        =>  url_title(strtolower($this->input->post('name'))),
+            'created_by'  =>  $data['session_data']->id,
+            'updated_by'  =>  $data['session_data']->id,
+            'created_at'  =>  date('Y-m-d H:i:s'),
+            'updated_at'  =>  date('Y-m-d H:i:s'),
+          );
+        } elseif ($segment == 'field') {
+          $data = array(  
+            'name'        =>  'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
+            'label'       =>  $this->input->post('name'),
+            'type'        =>  $this->input->post('type'),
+            'slug'        =>  url_title(strtolower($this->input->post('name'))),
+            'created_by'  =>  $data['session_data']->id,
+            'updated_by'  =>  $data['session_data']->id,
+            'created_at'  =>  date('Y-m-d H:i:s'),
+            'updated_at'  =>  date('Y-m-d H:i:s'),
+          );
+          /*update field */
 					$column = array(
 						'old_name' => strtolower($getDataById->name),
 						'name'	=>	'field_'.str_replace(' ', '_', strtolower($this->input->post('name'))),
@@ -293,6 +271,24 @@ class General extends CI_Controller {
 							$this->entries->alterChangeColumn($column);
 						}
 					}
+        } elseif($segment == 'group') {
+          $data = array(  
+            'id_section'  =>  $this->input->post('section'),
+            'id_field'    =>  $this->input->post('field'),
+          );
+        } else {
+          $entries = array();
+          foreach($_POST as $key => $value){
+            if (!in_array($key, array('entries', 'name', 'submit'))) {
+                // $data[$key] = $this->entries->input->post($key);
+                      $keys[] = $key;
+                      $values[] = $this->input->post($key);
+            }
+          }
+          $data = array_combine($keys, $values);
+        }
+
+        if($segment == 'field') {
 				}
 				
 				$this->$segment->update($id, $data);
@@ -309,25 +305,25 @@ class General extends CI_Controller {
 	}
 
 	public function delete($id){
-		$data['session_data']	=	$this->session_data;
-		
-		if (empty($this->segment_3) || in_array($this->segment_3, array('create', 'edit', 'update', 'delete'))) {
-			$segment 			=	$this->segment_2;
-	       	$data['title']		=	'List '.ucfirst($segment) ;
-			$data['action']		=	'admin/'.$segment;
-			$config['upload_path'] =	'./assets/upload/backend/'.$segment.'/';
-			$data['filepath']	=	base_url('assets/upload/backend/'.$segment.'/');	
-		} else {
-			$segment 			=	$this->segment_3;
-	       	$data['title']		=	'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
-			$data['action']		=	'admin/'.$this->segment_2.'/'.$segment;
-			$config['upload_path'] =	'./assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
-			$data['filepath']	=	base_url('assets/upload/backend/'.$this->segment_2.'/'.$segment.'/');
-		}
-		$data['segment']	=	$segment;
-		$action 			=	$data['action'];
-		$data['getDataById']	=	$this->$segment->getDataById($id);
-		$getDataById = $data['getDataById'];
+    
+    if (empty($this->segment_3) || in_array($this->segment_3, array('create', 'edit', 'update', 'delete'))) {
+      $segment  = $this->segment_2;
+      $config['upload_path']  = './assets/upload/backend/'.$segment.'/';
+      $data['title']  = 'List '.ucfirst($segment) ;
+      $data['action'] = 'admin/'.$segment;
+      $data['filepath'] = base_url('assets/upload/backend/'.$segment.'/');  
+    } else {
+      $segment  = $this->segment_3;
+      $config['upload_path'] =  './assets/upload/backend/'.$this->segment_2.'/'.$segment.'/';
+      $data['title']    = 'List '.ucfirst($this->segment_2).' '.ucfirst($segment);
+      $data['action']   = 'admin/'.$this->segment_2.'/'.$segment;
+      $data['filepath'] = base_url('assets/upload/backend/'.$this->segment_2.'/'.$segment.'/');
+    }
+		$action   =	$data['action'];
+    $data['session_data'] = $this->session_data;
+    $data['segment']  = $segment;
+		$data['getDataById']  = $this->$segment->getDataById($id);
+		$getDataById  = $data['getDataById'];
 
 		if($segment == 'field') {
 			$column = array(

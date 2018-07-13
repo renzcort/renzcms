@@ -39,16 +39,16 @@ class Entries_m extends CI_Model {
 
 	public function fetch_data($id_section, $limit, $start) {
 		$this->db->where('id_section', $id_section);
-        $this->db->limit($limit, $start);
-        $query = $this->db->get($this->_table);
+    $this->db->limit($limit, $start);
+    $query = $this->db->get($this->_table);
 
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $data[] = $row;
-            }
-            return $data;
+    if ($query->num_rows() > 0) {
+        foreach ($query->result() as $row) {
+            $data[] = $row;
         }
-        return false;
+        return $data;
+    }
+    return false;
    }
 
 	public function alterAddColumn($data) {
@@ -57,7 +57,7 @@ class Entries_m extends CI_Model {
 		} else {
 			$addSql = $data['name'].' '.$data['type'];
 		}
-		$sql = "ALTER TABLE {$this->_table} ADD {$addSql} AFTER id_section";
+		$sql = "ALTER TABLE {$this->_table} ADD {$addSql}";
 		$query = $this->db->query($sql);
 		if ($query) {
 			return true;

@@ -18,6 +18,17 @@ class Sample extends CI_Controller {
 		$this->load->view('admin/layout/default', $data);	
 	}
 
+  public function paging() {
+    $this->load->library('pagination');
+
+$config['base_url'] = base_url('sample/paging');
+$config['total_rows'] = 200;
+$config['per_page'] = 20;
+
+$this->pagination->initialize($config);
+
+echo $this->pagination->create_links();
+  }
 }
 
 /* End of file Sample.php */

@@ -17,13 +17,21 @@
       </div>
     </div>
   </div>
-  <?php $message = $this->session->flashdata('message'); ?>
+  <?php 
+    $message = $this->session->flashdata('message'); 
+    $error = $this->session->flashdata('error'); 
+  ?>
   <?php if($message) { ?>
   <div class="alert alert-success alert-dismissible">
     <i class="icon fa fa-check"></i>
     <?php echo $message; ?>
   </div>
-  <?php } ?>
+  <?php } else { ?>
+  <div class="alert alert-success alert-dismissible">
+    <i class="icon fa fa-check"></i>
+    <?php echo $error; ?>
+  </div>
+<?php } ?>
   <div class="row">
     <div class="col-xs-6">
       <div class="box box-primary">

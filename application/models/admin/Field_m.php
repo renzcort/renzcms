@@ -49,6 +49,17 @@ class Field_m extends CI_Model {
         }
         return false;
    }
+
+   public function checkData($data) {
+    $name = $data['name'];
+    $type = $data['type'];
+    $check = $this->db->get_where($this->_table, array('name' => $name));
+    if ($check->num_rows() > 0) {
+      return true;
+    } else {
+      return false;
+    }
+   }
 }
 
 /* End of file Field_m.php */
