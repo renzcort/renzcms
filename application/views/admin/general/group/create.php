@@ -16,11 +16,7 @@
           <?php } ?>
           <?php $attributes = array('role' => 'form') ?>
           <?php echo form_open_multipart(base_url($action).'/create', $attributes); ?>
-<<<<<<< HEAD
-          <div class="form-group">
-=======
           <!-- <div class="form-group">
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
             <label for="exampleInputUsername">Name</label>
             <input type="text" class="form-control" id="exampleInputname" name="title" placeholder="Enter name" required>
           </div>
@@ -36,16 +32,12 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
             <textarea name="description" class="form-control" id="editor1" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
-<<<<<<< HEAD
-          </div>
-=======
           </div> -->
           <div class="form-group">
             <label>Name Field</label>
             <select class="multiple"></select>
           </div>
 
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
