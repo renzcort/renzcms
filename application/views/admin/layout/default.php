@@ -30,6 +30,10 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url('assets/backend/'); ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+<<<<<<< HEAD
+=======
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+>>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -39,6 +43,27 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<<<<<<< HEAD
+=======
+<style>
+  #sortable1, #sortable2 {
+    border: 1px solid #eee;
+    width: 142px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+  }
+  #sortable1 li, #sortable2 li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 120px;
+  }
+  </style>
+>>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -89,10 +114,20 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+<<<<<<< HEAD
 <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+=======
+<!-- <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery/dist/jquery.min.js"></script> -->
+<!-- jQuery UI 1.11.4 -->
+<!-- <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery-ui/jquery-ui.min.js"></script> -->
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+>>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
@@ -157,6 +192,15 @@
       //bootstrap WYSIHTML5 - text editor
       $('.textarea').wysihtml5();
     })
+<<<<<<< HEAD
+=======
+
+    $( function() {
+      $( "#sortable1, #sortable2" ).sortable({
+        connectWith: ".connectedSortable"
+      }).disableSelection();
+    } );
+>>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
   });
 </script>
 

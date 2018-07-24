@@ -59,6 +59,7 @@ $segment_3 = $this->uri->segment('3');
 $segment_4 = $this->uri->segment('4');
 
 $route['admin'] = 'admin/login';
+<<<<<<< HEAD
 $route[$segment_1.'/'.$segment_2] 					= $segment_1.'/'.$segment_2.'/index';
 $route[$segment_1.'/'.$segment_2.'/create'] 		= $segment_1.'/'.$segment_2.'/create';
 $route[$segment_1.'/'.$segment_2.'/edit/(:num)']	= $segment_1.'/'.$segment_2.'/update/$1';
@@ -69,4 +70,20 @@ if(!in_array($segment_3,  array('cek_login', 'signout'))) {
 	$route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/create'] 		=	$segment_1.'/'.$segment_2.'/create';
 	$route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/edit/(:num)'] =	$segment_1.'/'.$segment_2.'/update/$1';
 	$route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/delete/(:num)'] 		=	$segment_1.'/'.$segment_2.'/delete/$1';
+=======
+$route[$segment_1.'/'.$segment_2]                   = $segment_1.'/'.$segment_2.'/index';
+$route[$segment_1.'/'.$segment_2.'/create'] 		    = $segment_1.'/'.$segment_2.'/create';
+$route[$segment_1.'/'.$segment_2.'/edit/(:num)']    = $segment_1.'/'.$segment_2.'/update/$1';
+$route[$segment_1.'/'.$segment_2.'/delete/(:num)'] 	= $segment_1.'/'.$segment_2.'/delete/$1';
+
+if(!in_array($segment_3,  array('cek_login', 'signout'))) {
+	$route[$segment_1.'/'.$segment_2.'/'.$segment_3]                   =	$segment_1.'/'.$segment_2.'/index';
+	$route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/create']         =	$segment_1.'/'.$segment_2.'/create';
+	$route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/edit/(:num)']    =	$segment_1.'/'.$segment_2.'/update/$1';
+	$route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/delete/(:num)']  =	$segment_1.'/'.$segment_2.'/delete/$1';
+}
+
+if(!in_array($segment_4, array('create', 'edit', 'delete'))){
+  $route[$segment_1.'/'.$segment_2.'/'.$segment_3.'/(:num)'] = $segment_1.'/'.$segment_2.'/index';
+>>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
 }
