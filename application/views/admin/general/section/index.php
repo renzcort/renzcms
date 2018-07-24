@@ -17,21 +17,29 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
   <?php 
     $message = $this->session->flashdata('message'); 
     $error = $this->session->flashdata('error'); 
   ?>
+=======
+  <?php $message = $this->session->flashdata('message'); ?>
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
   <?php if($message) { ?>
   <div class="alert alert-success alert-dismissible">
     <i class="icon fa fa-check"></i>
     <?php echo $message; ?>
   </div>
+<<<<<<< HEAD
   <?php } else { ?>
   <div class="alert alert-success alert-dismissible">
     <i class="icon fa fa-check"></i>
     <?php echo $error; ?>
   </div>
 <?php } ?>
+=======
+  <?php } ?>
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
   <div class="row">
     <div class="col-xs-6">
       <div class="box box-primary">
@@ -87,6 +95,10 @@
             </thead>
             <tbody class="text-left">
               <?php if ($total_rows) {?>
+<<<<<<< HEAD
+=======
+              <?php $i = 0 ?>
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
               <?php foreach ($getAll as $key ) {?>
               <tr>
                 <input type="hidden" name="id" value="<?php echo $key->id; ?>">

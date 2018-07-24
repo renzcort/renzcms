@@ -49,6 +49,7 @@ class Field_m extends CI_Model {
         }
         return false;
    }
+<<<<<<< HEAD
 
    public function checkData($data) {
     $name = $data['name'];
@@ -60,6 +61,8 @@ class Field_m extends CI_Model {
       return false;
     }
    }
+=======
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
 }
 
 /* End of file Field_m.php */

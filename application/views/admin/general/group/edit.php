@@ -17,6 +17,7 @@
           <?php $attributes = array('role' => 'form') ?>
           <?php echo form_open_multipart(base_url($action).'/edit/'.$getDataById->id, $attributes); ?>
           <!-- <form role="form"> -->
+<<<<<<< HEAD
           <input type="hidden" class="form-control" name="name" value="entries">          
           <div class="form-group">
             <ul id="sortable1" class="connectedSortable">
@@ -26,6 +27,29 @@
             </ul>
             <ul id="sortable2" class="connectedSortable">
             </ul>
+=======
+          <input type="hidden" class="form-control" name="name" value="entries">
+          <!-- select -->
+          <div class="form-group">
+            <label>Section</label>
+            <select class="form-control" name="section">
+              <option value="0">None</option>
+              <?php foreach ($getAllSection as $key) { ?>
+              <option value="<?php echo $key->id ?>" <?php echo ($key->id == $getDataById->id_section)? 'selected' : ''; ?>><?php echo $key->name ?></option>
+              <?php } ?>
+            </select>
+          </div>
+          <!-- select -->
+          <!-- select -->
+          <div class="form-group">
+            <label>Entries</label>
+            <select class="form-control" name="field">
+              <option value="0">None</option>
+              <?php foreach ($getAllField as $key) { ?>
+              <option value="<?php echo $key->id ?>" <?php echo ($key->id == $getDataById->id_field)? 'selected' : ''; ?>><?php echo $key->name ?></option>
+              <?php } ?>
+            </select>
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
           </div>
           <!-- select -->
           <div class="box-footer">
@@ -44,4 +68,8 @@
   </div>
   <!-- /.row -->
 </section>
+<<<<<<< HEAD
 <!-- /.content -->
+=======
+<!-- /.content -->
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689

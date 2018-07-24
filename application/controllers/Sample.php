@@ -6,11 +6,17 @@ class Sample extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+<<<<<<< HEAD
     	$this->load->model('admin/Field_m', 'field');
 
 		//Do your magic here
 		//
 		// $this->session_data = $this->auth->logged_in();
+=======
+		//Do your magic here
+		//
+		$this->session_data = $this->auth->logged_in();
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
 	}
 
 	public function index()
@@ -20,6 +26,7 @@ class Sample extends CI_Controller {
 		$this->load->view('admin/layout/default', $data);	
 	}
 
+<<<<<<< HEAD
   public function paging() {
     $this->load->library('pagination');
     $config['base_url'] = base_url('sample/paging');
@@ -33,6 +40,8 @@ class Sample extends CI_Controller {
     $data['field'] = $this->field->getAll();
     $this->load->view('test', $data);
   }
+=======
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
 }
 
 /* End of file Sample.php */
