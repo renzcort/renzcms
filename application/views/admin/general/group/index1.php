@@ -17,21 +17,13 @@
       </div>
     </div>
   </div>
-  <?php 
-    $message = $this->session->flashdata('message'); 
-    $error = $this->session->flashdata('error'); 
-  ?>
+  <?php $message = $this->session->flashdata('message'); ?>
   <?php if($message) { ?>
   <div class="alert alert-success alert-dismissible">
     <i class="icon fa fa-check"></i>
     <?php echo $message; ?>
   </div>
-  <?php } else { ?>
-  <div class="alert alert-success alert-dismissible">
-    <i class="icon fa fa-check"></i>
-    <?php echo $error; ?>
-  </div>
-<?php } ?>
+  <?php } ?>
   <div class="row">
     <div class="col-xs-6">
       <div class="box box-primary">
@@ -39,30 +31,36 @@
           <!-- <h3 class="box-title"><?php echo $title; ?></h3> -->
         </div>
         <div class="box-body">
-          <?php $attributes = array('role' => 'form') ?>
+        <?php $attributes = array('role' => 'form') ?>
           <?php echo form_open_multipart(base_url($action).'/create', $attributes); ?>
+          <input type="hidden" class="form-control" name="name" value="entries">
+          <!-- select -->
           <div class="form-group">
-            <label for="exampleInputUsername">Name</label>
-            <input type="text" class="form-control" id="exampleInputname" name="name" placeholder="Enter name">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputUsername">Type</label>
-            <select class="form-control" name="type">
-              <option value="0">- None -</option>
-              <option value="1">Single</option>
-              <option value="2">Channel</option>
+            <label>Section</label>
+            <select class="form-control" name="section">
+              <option value="0">None</option>
+              <?php foreach ($getAllSection as $key) { ?>
+              <option value="<?php echo $key->id ?>"><?php echo $key->name ?></option>
+              <?php } ?>
             </select>
           </div>
+          <!-- select -->
           <div class="form-group">
-            <label for="exampleInputEmail1">Description</label>
-            <textarea name="description" class="form-control" id="editor1" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+            <label>Entries</label>
+            <select class="form-control" name="field">
+              <option value="0">None</option>
+              <?php foreach ($getAllField as $key) { ?>
+              <option value="<?php echo $key->id ?>"><?php echo $key->name ?></option>
+              <?php } ?>
+            </select>
           </div>
+          <!-- select -->
           <!-- /.box-body -->
           <div class="box-footer">
             <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
           </div>
           <!-- </form> -->
-          <?php echo form_close(); ?>
+        <?php echo form_close(); ?>
         </div>
       </div>
       <!-- /.box -->
@@ -80,19 +78,34 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Name</th>
-                <th>Type</th>
+                <th>Section</th>
+                <th>Field</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody class="text-left">
-              <?php if ($total_rows) {?>
+              <?php if($total_rows) {?>
+              <?php $i = 0 ?>
               <?php foreach ($getAll as $key ) {?>
               <tr>
                 <input type="hidden" name="id" value="<?php echo $key->id; ?>">
                 <td><?php echo $i = $i + 1; ?></td>
-                <td><?php echo $key->name; ?></td>
-                <td><?php echo $key->type; ?></td>
+                <?php foreach ($getAllSection as $value) {
+                    if ($value->id == $key->id_section) {
+                ?>
+                  <td><?php echo $value->name ?></td>
+                <?php
+                    }
+                } 
+                ?>
+                <?php foreach ($getAllField as $value) {
+                    if ($value->id == $key->id_field) {
+                ?>
+                  <td><?php echo $value->name ?></td>
+                <?php
+                    }
+                } 
+                ?>
                 <td colspan="2" class="action">
                   <a class="btn btn-sm btn-info" href="<?php echo base_url($action.'/edit/').$key->id ?>" title="Edit"><i class="fa fa-pencil"></i></a>
                   <a class="btn btn-sm btn-danger deleteUser" href="<?php echo base_url($action.'/delete/').$key->id ?>" data-userid="2" title="Delete"><i class="fa fa-trash"></i></a>
@@ -104,42 +117,20 @@
             <tfoot>
             <tr>
               <th>No</th>
-              <th>Name</th>
-              <th>Type</th>
+              <th>Section</th>
+              <th>Field</th>
               <th>Action</th>
             </tr>
             </tfoot>
           </table>
         </div>
         <!-- /.box-body -->
-        <div class="box-footer text-center">
-          <style>
-          .pagination-dive li {
-          list-style: none;
-          display: inline-block;
-          }
-          .pagination-dive a:hover, .pagination-dive .active a {
-          background: #040404;
-          }
-          .pagination-dive a {
-          display: inline-block;
-          height: initial;
-          background: #939890;
-          padding: 10px 15px;
-          border: 1px solid #fff;
-          color: #fff;
-          }
-          </style>
-          
-          <div class="pagination-dive" >
-            <?php echo $nav; ?>
-          </div>
-        </div>
-        <!-- /.box -->
-        
       </div>
-      <!-- /.col -->
+      <!-- /.box -->
+      
     </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
