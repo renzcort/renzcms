@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -22,8 +17,18 @@
           <?php $attributes = array('role' => 'form') ?>
           <?php echo form_open_multipart(base_url($action).'/edit/'.$getDataById->id, $attributes); ?>
           <!-- <form role="form"> -->
-          <input type="hidden" class="form-control" name="name" value="entries">
 <<<<<<< HEAD
+          <input type="hidden" class="form-control" name="name" value="entries">          
+          <div class="form-group">
+            <ul id="sortable1" class="connectedSortable">
+              <?php foreach ($getAllField as $value) { ?>
+                <li class="ui-state-default"><?php echo $value->name; ?></li>
+              <?php } ?>
+            </ul>
+            <ul id="sortable2" class="connectedSortable">
+            </ul>
+=======
+          <input type="hidden" class="form-control" name="name" value="entries">
           <!-- select -->
           <div class="form-group">
             <label>Section</label>
@@ -44,17 +49,7 @@
               <option value="<?php echo $key->id ?>" <?php echo ($key->id == $getDataById->id_field)? 'selected' : ''; ?>><?php echo $key->name ?></option>
               <?php } ?>
             </select>
-=======
-          
-          <div class="form-group">
-            <ul id="sortable1" class="connectedSortable">
-              <?php foreach ($getAllField as $value) { ?>
-                <li class="ui-state-default"><?php echo $value->name; ?></li>
-              <?php } ?>
-            </ul>
-            <ul id="sortable2" class="connectedSortable">
-            </ul>
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
           </div>
           <!-- select -->
           <div class="box-footer">
@@ -77,5 +72,4 @@
 <!-- /.content -->
 =======
 <!-- /.content -->
-
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689

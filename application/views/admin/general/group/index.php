@@ -26,6 +26,9 @@
   <?php } ?>
   <div class="row">
 <<<<<<< HEAD
+
+    <div class="col-xs-12">
+=======
     <div class="col-xs-6">
       <div class="box box-primary">
         <div class="box-header with-border">
@@ -69,9 +72,7 @@
     </div>
     <!-- /.col -->
     <div class="col-xs-6">
-=======
-    <div class="col-xs-12">
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
       <div class="box">
         <div class="box-header">
           <h3 class="box-title"><?php echo $title ?></h3>
@@ -84,12 +85,12 @@
                 <th>No</th>
                 <th>Section</th>
 <<<<<<< HEAD
-                <th>Field</th>
-=======
                 <th>handle</th>
                 <th>Type</th>
                 <th>URL Format</th>
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+=======
+                <th>Field</th>
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
                 <th>Action</th>
               </tr>
             </thead>
@@ -97,6 +98,15 @@
               <?php if($total_rows) {?>
               <?php $i = 0 ?>
 <<<<<<< HEAD
+              <?php foreach ($getAllSection as $key ) {?>
+              <tr>
+                <input type="hidden" name="id" value="<?php echo $key->id; ?>">
+                <td><?php echo $i = $i + 1; ?></td>
+                <td><?php echo $key->name ?></td>
+                <td></td>
+                <td><?php echo $key->type ?></td>
+                <td><?php echo $key->slug ?></td>
+=======
               <?php foreach ($getAll as $key ) {?>
               <tr>
                 <input type="hidden" name="id" value="<?php echo $key->id; ?>">
@@ -117,16 +127,7 @@
                     }
                 } 
                 ?>
-=======
-              <?php foreach ($getAllSection as $key ) {?>
-              <tr>
-                <input type="hidden" name="id" value="<?php echo $key->id; ?>">
-                <td><?php echo $i = $i + 1; ?></td>
-                <td><?php echo $key->name ?></td>
-                <td></td>
-                <td><?php echo $key->type ?></td>
-                <td><?php echo $key->slug ?></td>
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
                 <td colspan="2" class="action">
                   <a class="btn btn-sm btn-info" href="<?php echo base_url($action.'/edit/').$key->id ?>" title="Edit"><i class="fa fa-pencil"></i></a>
                   <a class="btn btn-sm btn-danger deleteUser" href="<?php echo base_url($action.'/delete/').$key->id ?>" data-userid="2" title="Delete"><i class="fa fa-trash"></i></a>

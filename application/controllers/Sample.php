@@ -7,16 +7,16 @@ class Sample extends CI_Controller {
 	{
 		parent::__construct();
 <<<<<<< HEAD
-		//Do your magic here
-		//
-		$this->session_data = $this->auth->logged_in();
-=======
-    $this->load->model('admin/Field_m', 'field');
+    	$this->load->model('admin/Field_m', 'field');
 
 		//Do your magic here
 		//
 		// $this->session_data = $this->auth->logged_in();
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+=======
+		//Do your magic here
+		//
+		$this->session_data = $this->auth->logged_in();
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
 	}
 
 	public function index()
@@ -27,7 +27,6 @@ class Sample extends CI_Controller {
 	}
 
 <<<<<<< HEAD
-=======
   public function paging() {
     $this->load->library('pagination');
     $config['base_url'] = base_url('sample/paging');
@@ -41,7 +40,8 @@ class Sample extends CI_Controller {
     $data['field'] = $this->field->getAll();
     $this->load->view('test', $data);
   }
->>>>>>> 98c734f4666bb3b8a33a2187647bfb9163dd33ca
+=======
+>>>>>>> 05f80e2747075c945644ea1cfd53e469768b1689
 }
 
 /* End of file Sample.php */
