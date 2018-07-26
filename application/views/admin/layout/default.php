@@ -107,23 +107,20 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<!-- <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery/dist/jquery.min.js"></script> -->
-<!-- jQuery UI 1.11.4 -->
-<!-- <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery-ui/jquery-ui.min.js"></script> -->
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<!-- jQuery 3 -->
+<script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
-
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url('assets/backend/'); ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="<?php echo base_url('assets/backend/'); ?>bower_components/raphael/raphael.min.js"></script>
-<script src="<?php echo base_url('assets/backend/'); ?>bower_components/morris.js/morris.min.js"></script>
+<!-- <script src="<?php echo base_url('assets/backend/'); ?>bower_components/morris.js/morris.min.js"></script> -->
 <!-- Sparkline -->
 <script src="<?php echo base_url('assets/backend/'); ?>bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
@@ -145,12 +142,15 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/backend/'); ?>dist/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url('assets/backend/'); ?>dist/js/pages/dashboard.js"></script>
+<!-- <script src="<?php echo base_url('assets/backend/'); ?>dist/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/backend/'); ?>dist/js/demo.js"></script>
 
 <!-- CK Editor -->
-<script src="<?php echo base_url('assets/backend/'); ?>bower_components/ckeditor/ckeditor.js"></script>
+<!-- <script src="<?php echo base_url('assets/backend/'); ?>bower_components/ckeditor/ckeditor.js"></script> -->
+<!-- <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script> -->
+<!-- Bootstrap WYSIHTML5 -->
+<script src="<?php echo base_url('assets/backend/'); ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 <script src="<?php echo base_url('assets/backend/'); ?>js/index.js"></script>
@@ -172,19 +172,13 @@
       alert("Your browser doesn't support to File API")
     }
 
-    $(function () {
+    /*$(function () {
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
-      CKEDITOR.replace('editor1');
+      CKEDITOR.replace('editor1')
       //bootstrap WYSIHTML5 - text editor
-      $('.textarea').wysihtml5();
-    })
-
-    $( function() {
-      $( "#sortable1, #sortable2" ).sortable({
-        connectWith: ".connectedSortable"
-      }).disableSelection();
-    } );
+      $('.textarea').wysihtml5()
+    })*/
   });
 </script>
 

@@ -1,5 +1,3 @@
-
-
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -20,15 +18,27 @@
           <?php echo form_open_multipart(base_url($action).'/edit/'.$getDataById->id, $attributes); ?>
           <!-- <form role="form"> -->
           <input type="hidden" class="form-control" name="name" value="entries">
-          
-          <div class="form-group">
-            <ul id="sortable1" class="connectedSortable">
-              <?php foreach ($getAllField as $value) { ?>
-                <li class="ui-state-default"><?php echo $value->name; ?></li>
-              <?php } ?>
-            </ul>
-            <ul id="sortable2" class="connectedSortable">
-            </ul>
+          <div class="row">
+            <dir class="col-sm-6">
+              <div class="form-group">
+                <label>All Field</label> 
+                <div class="field-list"> 
+                  <ul id="sortable1" class="connectedSortable list-group">
+                    <?php foreach ($getAllField as $value) { ?>
+                      <li class="ui-state-default list-group-item" id="<?php echo $value->id; ?>"><?php echo $value->name; ?></li>
+                    <?php } ?>
+                  </ul>
+                </div>
+              </div>
+            </dir>
+            <dir class="col-sm-6">
+              <label>Select Field</label>
+              <div class="field-list"> 
+                <ul id="sortable2" class="connectedSortable">
+                </ul>
+                <input type="text" name="sort" class="form-control sort">
+              </div>
+            </dir>
           </div>
           <!-- select -->
           <div class="box-footer">
@@ -49,3 +59,24 @@
 </section>
 <!-- /.content -->
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+  $( document ).ready(function() {
+     var listVal = [];
+    $( function() {
+      $( "#sortable1, #sortable2" ).sortable({
+        connectWith: ".connectedSortable",
+        /*get val id*/
+        stop : function(event, ui) {
+            $('#sortable2 li').each(function(){
+                var a = $(this).attr('id');
+                listVal.push(a);
+            });
+            $('.sort').val(listVal); 
+        }
+      }).disableSelection();
+    } );
+
+  });
+</script>
