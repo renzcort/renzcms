@@ -217,9 +217,22 @@ class General extends CI_Controller {
 		$data['segment']  = $segment;
 		$data['getAllSection']  = $this->section->getAll();
 		$data['getAllField']    = $this->field->getAll();
-		$data['getAll']         = $this->$segment->getAll();
-		$data['getDataById']    = $this->$segment->getDataById($id);
-		$getDataById  = $data['getDataById'];
+    $data['getAll']         = $this->$segment->getAll();
+    if($segment == 'group') {
+      $data['getDataById']    = $this->section->getDataById($id);
+      $data['getDataByIdSection']    = $this->$segment->getDataByIdSection($id);
+    } else {
+      $data['getDataById']    = $this->$segment->getDataById($id);
+    }
+
+
+    if (in_array('1', ['1', '2', '3', '4'])) {
+      var_dump('expression');
+    }
+
+    // var_dump($data['getDataByIdSection']);
+    die();
+    $getDataById  = $data['getDataById'];
 		
 		if (isset($_POST['submit'])) {
 			$config['allowed_types']	=	'gif|jpg|png';
@@ -271,11 +284,11 @@ class General extends CI_Controller {
 							$this->entries->alterChangeColumn($column);
 						}
 					}
-        } elseif($segment == 'group') {
+/*        } elseif($segment == 'group') {
           $data = array(  
             'id_section'  =>  $this->input->post('section'),
             'id_field'    =>  $this->input->post('field'),
-          );
+          );*/
         } else {
           $entries = array();
           foreach($_POST as $key => $value){
@@ -288,10 +301,20 @@ class General extends CI_Controller {
           $data = array_combine($keys, $values);
         }
 
-        if($segment == 'field') {
-				}
-				
-				$this->$segment->update($id, $data);
+        if($segment == 'group') {
+          $field = explode(',', $this->input->post('sort'));
+          $this->$segment->deleteByIdSection($id);
+          foreach ($field as $key => $value) {
+            $data = array(  
+              'id_section'  =>  $id,
+              'id_field'    =>  $value,
+            );
+				    $this->$segment->create($data);
+          }
+        } else {
+          $this->$segment->update($id, $data);
+        }
+        
 				$this->session->set_flashdata('message', 'Data Success added');
 				redirect($action);
 			} else {

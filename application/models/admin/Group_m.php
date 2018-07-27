@@ -19,19 +19,23 @@ class Group_m extends CI_Model {
 	}
 
 	public function getDataById($id) {
-		return $this->db->get_where($this->_table, array('id' => $id))->row();
-	}
+    return $this->db->get_where($this->_table, array('id' => $id))->row();
+  }
 
-	public function update($id, $data) {
-		$this->db->where('id', $id);
-		$this->db->update($this->_table, $data);
-	}
+  public function update($id, $data) {
+    $this->db->where('id', $id);
+    $this->db->update($this->_table, $data);
+  }
 
-	public function delete($id){
-		$this->db->where('id', $id);
-		$this->db->delete($this->_table);
-	}
-	
+  public function delete($id){
+    $this->db->where('id', $id);
+    $this->db->delete($this->_table);
+  }
+  
+  public function getDataByIdSection($id_section){
+		return $this->db->get_where($this->_table, array('id_section' => $id_section))->result();
+  }
+
 	public function deleteByIdField($id_field){
 		$this->db->where('id_field', $id_field);
 		$this->db->delete($this->_table);
