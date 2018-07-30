@@ -18,15 +18,22 @@
           <?php echo form_open_multipart(base_url($action).'/edit/'.$getDataById->id, $attributes); ?>
           <!-- <form role="form"> -->
           <input type="hidden" class="form-control" name="section" value="entries">
+          <input type="hidden" class="form-control" name="name" value="entries">
           <div class="row">
             <dir class="col-sm-6">
               <div class="form-group">
                 <label>All Field</label> 
                 <div class="field-list"> 
                   <ul id="sortable1" class="connectedSortable list-group">
-                    <?php foreach ($getAllField as $value) { ?>
+                    <?php 
+                      foreach ($getAllField as $value) { 
+                        if (!in_array($value->id, $listFields)) {
+                    ?>
                       <li class="ui-state-default list-group-item" id="<?php echo $value->id; ?>"><?php echo $value->name; ?></li>
-                    <?php } ?>
+                    <?php 
+                        } 
+                      }
+                    ?>
                   </ul>
                 </div>
               </div>
@@ -36,7 +43,7 @@
               <div class="field-list"> 
                 <ul id="sortable2" class="connectedSortable">
                   <?php foreach ($getDataByIdSection as $val) { ?>
-                    <li class="ui-state-default list-group-item" id="<?php echo $val->id_field; ?>"><?php echo $val->id_field; ?></li>
+                    <li class="ui-state-default list-group-item" id="<?php echo $val->id_field; ?>"><?php echo $val->name; ?></li>
                   <?php } ?>
                 </ul>
                 <input type="text" name="sort" class="form-control sort">

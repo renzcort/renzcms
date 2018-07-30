@@ -17,7 +17,7 @@
           <?php $attributes = array('role' => 'form') ?>
           <?php echo form_open_multipart(base_url($action).'/create', $attributes); ?>
           <!-- <form role="form"> -->
-          <input type="hidden" class="form-control" name="title" value="section">
+          <input type="text" class="form-control" name="title" required>
           <!-- select -->
           <div class="form-group">
             <label>Section</label>

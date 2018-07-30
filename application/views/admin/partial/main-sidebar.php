@@ -67,14 +67,14 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-laptop"></i>
-          <span>General Section</span>
+          <span>General Entries</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
           <?php foreach ($getAllSection as $key) { ?>
-          <li><a href="<?php echo base_url('admin/section/?id=').$key->id;?>"><i class="fa fa-circle-o"></i><?php echo ucfirst($key->name); ?></a></li>
+          <li><a href="<?php echo base_url('admin/entries/?id=').$key->id;?>"><i class="fa fa-circle-o"></i><?php echo ucfirst($key->name); ?></a></li>
           <?php } ?>
         </ul>
       </li>

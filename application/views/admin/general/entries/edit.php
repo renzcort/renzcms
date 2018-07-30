@@ -17,7 +17,7 @@
           <?php $attributes = array('role' => 'form') ?>
           <?php echo form_open_multipart(base_url($action).'/edit/'.$getDataById->id, $attributes); ?>
           <!-- <form role="form"> -->
-          <input type="hidden" class="form-control" name="title" value="entries">
+          <input type="text" class="form-control" name="title" value="<?php echo $getDataById->title; ?>" required>
           <!-- select -->
           <div class="form-group">
             <label>Section</label>

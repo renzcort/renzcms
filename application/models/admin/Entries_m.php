@@ -32,6 +32,11 @@ class Entries_m extends CI_Model {
 		$this->db->delete($this->_table);
 	}
 
+  public function delColsEntries($id_section, $colNull){
+    $this->db->where('id_section', $id_section);
+    $this->db->update($this->_table, $colNull);
+  }
+
 // Count all record of table "contact_info" in database.
 	public function record_count() {
 		return $this->db->count_all($this->_table);

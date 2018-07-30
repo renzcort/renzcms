@@ -221,17 +221,14 @@ class General extends CI_Controller {
     if($segment == 'group') {
       $data['getDataById']    = $this->section->getDataById($id);
       $data['getDataByIdSection']    = $this->$segment->getDataByIdSection($id);
+      $oldField = [];
+      foreach ($data['getDataByIdSection'] as $key ) {
+        array_push($oldField, $key->id_field);
+      }
+      $data['listFields'] = $oldField;
     } else {
       $data['getDataById']    = $this->$segment->getDataById($id);
     }
-
-
-    if (in_array('1', ['1', '2', '3', '4'])) {
-      var_dump('expression');
-    }
-
-    // var_dump($data['getDataByIdSection']);
-    die();
     $getDataById  = $data['getDataById'];
 		
 		if (isset($_POST['submit'])) {
@@ -303,6 +300,14 @@ class General extends CI_Controller {
 
         if($segment == 'group') {
           $field = explode(',', $this->input->post('sort'));
+          foreach ($oldField as $key => $value) {
+            if (!in_array($value, $field)) {
+              // delete entries where section id
+              $getField = $this->field->getDataById($value);
+              $colNull = array($getField->name => '');
+              $delColsEntries = $this->entries->delColsEntries($id, $colNull);
+            }
+          }
           $this->$segment->deleteByIdSection($id);
           foreach ($field as $key => $value) {
             $data = array(  

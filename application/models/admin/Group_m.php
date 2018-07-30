@@ -33,7 +33,7 @@ class Group_m extends CI_Model {
   }
   
   public function getDataByIdSection($id_section){
-		return $this->db->get_where($this->_table, array('id_section' => $id_section))->result();
+		return $this->db->join('renzcms_field', 'renzcms_field.id = renzcms_group.id_field')->get_where($this->_table, array('id_section' => $id_section))->result();
   }
 
 	public function deleteByIdField($id_field){
