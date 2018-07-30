@@ -12,79 +12,75 @@ class Entries extends CI_Controller {
 		$this->load->model('admin/Field_m', 'field');
 		$this->load->model('admin/Entries_m', 'entries');
 		$this->load->model('admin/Group_m', 'group');
+    $keyword = array_keys($this->input->get());
+    foreach ($keyword as $key => $value) {
+      if (in_array($value, array('id'))) {
+        $this->keys = $value;
+        $this->val = $this->input->get($value);
+      }
+    }
 
-		$this->segment_2 = 'section';
-		$this->segment_3 = 'section';
 	}
 
 	public function index(){
 		$data['session_data']	=	$this->session_data;
-		$segment 			=	$this->segment_2;
-		$data['segment']	=	$segment;
+		
+		$data['id_section']     = $this->val;
+		$data['getAllSection']  = $this->section->getAll();
+		$data['getSectionById'] = $this->section->getDataById($this->val);
+		$data['nameSection']    = strtolower($data['getSectionById']->name);
+   	$data['title']	=	'List '.ucfirst($data['nameSection']);
+		$data['action']	=	'admin/entries';
+		$action =	$data['action'];
 
-		$keyword = array_keys($this->input->get());
-		foreach ($keyword as $key => $value) {
-			if (in_array($value, array('id'))) {
-				$keys = $value;
-				$val = $this->input->get($value);
-			}
-		}
-		$data['id_section'] = $val;
-		$data['getAllSection'] = $this->section->getAll();
-		$data['getSectionById'] = $this->section->getDataById($val);
-		$data['nameSection'] = strtolower($data['getSectionById']->name);
-       	$data['title']		=	'List '.ucfirst($data['nameSection']);
-		$data['action']		=	'admin/'.$segment;
-		$action 			=	$data['action'];
-
-		$uri_segment = 4;
+		$uri_segment    = 4;
 		$data['offset'] = ($this->uri->segment(4)) ? $this->uri->segment(4):'0';
 			//Penomoran baris data
 		$offset = $this->uri->segment($uri_segment);
 		//Penomoran baris data
 		$i = 0 + $offset;
-        $allrecord = $this->entries->record_count($val);
-        $baseurl =  base_url().'frontend/product/group/?'.$keys.'='.$val;
+    $allrecord = $this->entries->record_count($this->val);
+    $baseurl =  base_url().'frontend/product/group/?'.$this->keys.'='.$this->val;
 
-        $paging=array();
-        $paging['i'] = 0 + $offset;
-        $paging['base_url'] =$baseurl;
-        $paging['total_rows'] = $allrecord;
-        $paging['per_page'] = 5;
-        $paging['uri_segment']= $uri_segment;	
-        $paging['num_links'] = 2;
-        $paging['first_link'] = 'First';
-        $paging['first_tag_open'] = '<li>>';
-        $paging['first_tag_close'] = '</li>';
-        $paging['num_tag_open'] = '<li>';
-        $paging['num_tag_close'] = '</li>';
-        $paging['prev_link'] = 'Prev';
-        $paging['prev_tag_open'] = '<li>';
-        $paging['prev_tag_close'] = '</li>';
-        $paging['next_link'] = 'Next';
-        $paging['next_tag_open'] = '<li>';
-        $paging['next_tag_close'] = '</li>';
-        $paging['last_link'] = 'Last';
-        $paging['last_tag_open'] = '<li>';
-        $paging['last_tag_close'] = '</li>';
-        $paging['cur_tag_open'] = '<li class="active"><a href="javascript:void(0);">';
-        $paging['cur_tag_close'] = '</a></li>';
-        $paging['use_page_numbers'] = TRUE;
-        $paging['page_query_string'] = TRUE;
-    	$paging['enable_query_strings'] = TRUE;
-        $paging['query_string_segment'] = 'page';
-       	$data['offset'] = ($this->input->get('page')) ? ( ( $this->input->get('page') - 1 ) * $paging["per_page"] ) : 0;
-        $this->pagination->initialize($paging);
+    $paging=array();
+    $paging['i'] = 0 + $offset;
+    $paging['base_url'] =$baseurl;
+    $paging['total_rows'] = $allrecord;
+    $paging['per_page'] = 5;
+    $paging['uri_segment']= $uri_segment;	
+    $paging['num_links'] = 2;
+    $paging['first_link'] = 'First';
+    $paging['first_tag_open'] = '<li>>';
+    $paging['first_tag_close'] = '</li>';
+    $paging['num_tag_open'] = '<li>';
+    $paging['num_tag_close'] = '</li>';
+    $paging['prev_link'] = 'Prev';
+    $paging['prev_tag_open'] = '<li>';
+    $paging['prev_tag_close'] = '</li>';
+    $paging['next_link'] = 'Next';
+    $paging['next_tag_open'] = '<li>';
+    $paging['next_tag_close'] = '</li>';
+    $paging['last_link'] = 'Last';
+    $paging['last_tag_open'] = '<li>';
+    $paging['last_tag_close'] = '</li>';
+    $paging['cur_tag_open'] = '<li class="active"><a href="javascript:void(0);">';
+    $paging['cur_tag_close'] = '</a></li>';
+    $paging['use_page_numbers'] = TRUE;
+    $paging['page_query_string'] = TRUE;
+  	$paging['enable_query_strings'] = TRUE;
+    $paging['query_string_segment'] = 'page';
+   	$data['offset'] = ($this->input->get('page')) ? ( ( $this->input->get('page') - 1 ) * $paging["per_page"] ) : 0;
+    $this->pagination->initialize($paging);
 		$data['i'] = 0 + $offset;
-        $data['limit'] = $paging['per_page'];
-        $data['number_page'] = $paging['per_page'];         
-        $data['nav'] = $this->pagination->create_links();
-        $data['total_rows'] = $allrecord;
-    	$data["getAllEntries"] = $this->entries->fetch_data($val, $data['limit'],$data['offset']);
+    $data['limit'] = $paging['per_page'];
+    $data['number_page'] = $paging['per_page'];         
+    $data['nav'] = $this->pagination->create_links();
+    $data['total_rows'] = $allrecord;
+  	$data["getAllEntries"] = $this->entries->fetch_data($this->val, $data['limit'],$data['offset']);
 
-		$data['getFieldByIdSection'] = $this->group->getFieldByIdSection($val);
+		$data['getFieldByIdSection'] = $this->group->getFieldByIdSection($this->val);
 		$data['fields'] = $this->db->list_fields('renzcms_entries');
-		$data['getGroupByIdSection'] = $this->group->getGroupByIdSection($val);
+		$data['getGroupByIdSection'] = $this->group->getGroupByIdSection($this->val);
 		// $data['getEntriesBySection'] = $this->entries->getEntriesBySection($id_section);
 
 		$data['content']	=	$data['action'].'/index';
@@ -92,14 +88,15 @@ class Entries extends CI_Controller {
 	}
 
 	public function create() {
+    $segment = $this->uri->segment(3);
+    $data['id_section'] = $this->val;
 		$data['session_data']	=	$this->session_data;
-		$segment 			=	$this->segment_3;
-		$data['segment']	=	$segment;
-       	$data['title']		=	'List '.ucfirst($segment) ;
-		$data['action']		=	'admin/'.$this->segment_2;
-		$action 			=	$data['action'];
-		$config['upload_path'] = './assets/upload/'.$segment.'/';
-		$data['filepath']	=	base_url('assets/upload/'.$segment.'/');	
+    $data['segment']  = $segment;
+   	$data['title']		=	'List '.ucfirst($this->uri->segment(3)); 
+		$data['action']		=	'admin/'.$this->uri->segment(2);
+		$action   = $data['action'];
+		$config['upload_path']  = './assets/upload/'.$segment.'/';
+		$data['filepath']	      =	base_url('assets/upload/'.$segment.'/');	
 
 		$data['getAllSection'] = $this->section->getAll();
 		foreach ($data['getAllSection'] as  $key) {
@@ -109,15 +106,15 @@ class Entries extends CI_Controller {
 		}
 
 		$data['getGroupByIdSection'] = $this->group->getGroupByIdSection($id_section);
-		$data['getAllField'] = $this->field->getAll();
-		$data['id_section'] = $id_section;
+		$data['getAllField']  = $this->field->getAll();
+		$data['id_section']   = $id_section;
 
 		if (isset($_POST['submit'])) {
 			$config['allowed_types']	=	'gif|jpg|png';
 			$this->load->library('upload');
 			$this->upload->initialize($config);
 
-			$this->form_validation->set_rules('id_section', 'Id Section', 'required');
+			$this->form_validation->set_rules('title', 'Title', 'required');
 			if ($this->form_validation->run() == TRUE) {
 				// check if there is form entries
 				foreach($_POST as $key => $value){
@@ -147,15 +144,14 @@ class Entries extends CI_Controller {
 
 
 	public function update($id) {
-		$data['session_data']	=	$this->session_data;
-
-		$segment 			=	$this->segment_3;
-		$data['segment']	=	$segment;
-       	$data['title']		=	'List '.ucfirst($segment) ;
-		$data['action']		=	'admin/'.$this->segment_2;
-		$action 			=	$data['action'];
-		$config['upload_path'] = './assets/upload/'.$segment.'/';
-		$data['filepath']	=	base_url('assets/upload/'.$segment.'/');	
+    $segment = $this->uri->segment(3);
+    $data['session_data'] = $this->session_data;
+    $data['segment']  = $segment;
+    $data['title']    = 'List '.ucfirst($this->uri->segment(3)); 
+    $data['action']   = 'admin/'.$this->uri->segment(2);
+    $action   = $data['action'];
+    $config['upload_path']  = './assets/upload/'.$segment.'/';
+    $data['filepath']       = base_url('assets/upload/'.$segment.'/');  
 
 		$data['getAllSection'] = $this->section->getAll();
 		foreach ($data['getAllSection'] as  $key) {
@@ -174,7 +170,7 @@ class Entries extends CI_Controller {
 			$this->load->library('upload');
 			$this->upload->initialize($config);
 
-			$this->form_validation->set_rules('id_section', 'Id Section', 'required');
+			$this->form_validation->set_rules('title', 'Title', 'required');
 			if ($this->form_validation->run() == TRUE) {
 				// check if there is form entries
 				foreach($_POST as $key => $value){
