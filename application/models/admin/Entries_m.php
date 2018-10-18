@@ -43,9 +43,11 @@ class Entries_m extends CI_Model {
 	}
 
 	public function fetch_data($id_section, $limit, $start) {
+    $this->db->select('a.*, b.username');
+    $this->db->join('renzcms_users b', 'b.id = a.created_by', 'left');
 		$this->db->where('id_section', $id_section);
     $this->db->limit($limit, $start);
-    $query = $this->db->get($this->_table);
+    $query = $this->db->get($this->_table.' a');
 
     if ($query->num_rows() > 0) {
         foreach ($query->result() as $row) {

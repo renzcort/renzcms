@@ -124,9 +124,13 @@ class Entries extends CI_Controller {
 					}
 				}
 				$data = array_combine($keys, $values);
+        $data['created_by'] = $this->session_data->id;
+        $data['updated_by'] = $this->session_data->id;
+        $data['created_at'] = date('Y-m-d');
+        $data['updated_at'] = date('Y-m-d');
 	            
-            	if ($this->upload->do_upload('field_photo')) {
-            		$photo = $this->upload->data();
+      	if ($this->upload->do_upload('field_photo')) {
+      		$photo = $this->upload->data();
 					$data['field_photo'] = $photo['file_name'];
 				}
 				$this->entries->create($data);

@@ -37,6 +37,9 @@
                 <?php foreach ($getFieldByIdSection as $value) { ?>
                 <th><?php echo $value->label ?></th>
                 <?php } ?>
+                <th>Post Date</th>
+                <th>Expired Date</th>
+                <th>Author</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -61,6 +64,9 @@
                       }
                     }
                 } ?>
+                <td><?php echo date("d/m/Y", strtotime($key->created_at)); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($key->updated_at)); ?></td>
+                <td><?php echo $key->username; ?></td>
                 <td colspan="2" class="action">
                   <a class="btn btn-sm btn-info" href="<?php echo base_url($action.'/'.$nameSection.'/edit/').$key->id ?>" title="Edit"><i class="fa fa-pencil"></i></a>
                   <a class="btn btn-sm btn-danger deleteUser" href="<?php echo base_url($action.'/'.$nameSection.'/delete/').$key->id ?>" data-userid="2" title="Delete"><i class="fa fa-trash"></i></a>
